@@ -17,19 +17,44 @@ from pathlib import Path
 from tqdm import tqdm
 import csv
 import datetime
-import cv2
-from PIL import Image
 
-from models.net import EncoderDecoderNet, SPPNet, EfficientUnet
+from src.models.net import EncoderDecoderNet, SPPNet, EfficientUnet
 from losses.multi import MultiClassCriterion
 from logger.log import debug_logger
 from logger.plot import history_ploter
 from utils.optimizer import create_optimizer
-from utils.metrics import compute_iou_batch
-from pipelinev2 import filter_by_contour, draw_contour, vis_segmentation, save_to_image
-from utils.preprocess_pipeline import minmax_normalize, meanstd_normalize, topcrop, rescale
+from src.utils.metrics import compute_iou_batch
 
 print('Modules and packages imported')
+
+#deals with arguments submitted next to .py filename in terminal
+parser = argparse.ArgumentParser()
+parser.add_argument('config_path')
+args = parser.parse_args()
+config_path = Path(args.config_path)
+config = yaml.load(open(config_path))
+net_config = config['Net']
+data_config = config['Data']
+train_config = config['Train']
+loss_config = config['Loss']
+opt_config = config['Optimizer']
+device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+t_max = opt_config['t_max']
+best_epoch = 0
+
+max_epoch = train_config['max_epoch']
+batch_size = train_config['batch_size']
+fp16 = train_config['fp16']
+resume = train_config['resume']
+pretrained_path = train_config['pretrained_path']
+try:
+    freeze_to_layer = train_config['freeze_to_layer']
+    freeze_bn = train_config['freeze_bn']
+    load_logits = train_config['load_logits']
+except KeyError:
+    freeze_to_layer = False
+    freeze_bn = False
+    load_logits = True
 
 def deterministic_mode(seed):
     torch.manual_seed(seed)
@@ -60,53 +85,6 @@ def load_model(out_channels=2, enc_type='efficientnet', dec_type='unet', pretrai
         model = SPPNet(output_channels=out_channels, enc_type=enc_type, dec_type=dec_type, output_stride=output_stride)
     return model
 
-#deals with arguments submitted next to .py filename in terminal
-parser = argparse.ArgumentParser()
-parser.add_argument('config_path')
-args = parser.parse_args()
-config_path = Path(args.config_path)
-config = yaml.load(open(config_path))
-net_config = config['Net']
-data_config = config['Data']
-train_config = config['Train']
-loss_config = config['Loss']
-opt_config = config['Optimizer']
-device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-t_max = opt_config['t_max']
-best_epoch = 0
-
-max_epoch = train_config['max_epoch']
-batch_size = train_config['batch_size']
-fp16 = train_config['fp16']
-resume = train_config['resume']
-pretrained_path = train_config['pretrained_path']
-
-#not very graceful block...
-try:
-    freeze_to_layer = train_config['freeze_to_layer']
-except KeyError:
-    freeze_to_layer = False
-try:
-    freeze_bn = train_config['freeze_bn']
-except KeyError:
-    freeze_bn = False
-try:
-    load_logits = train_config['load_pretrained_logits']
-except KeyError:
-    load_logits = True
-try:
-    valid_per_x_epoch = train_config['valid_per_x_epoch']
-except KeyError:
-    valid_per_x_epoch = 4
-try:
-    tta = train_config['tta']
-except KeyError:
-    tta = True
-try:
-    valid_only = train_config['valid_only']
-except KeyError:
-    valid_only = False
-
 # Deterministic training
 fix_seed = False
 if fix_seed:
@@ -119,15 +97,15 @@ model = load_model(out_channels=net_config['output_channels'], enc_type=net_conf
 
 dataset = data_config['dataset']
 if dataset == 'pascal':
-    from dataset.pascal_voc import PascalVocDataset as Dataset
+    from src.dataset.pascal_voc import PascalVocDataset as Dataset
     net_config['output_channels'] = 21
     classes = np.arange(1, 21)
 elif dataset == 'cityscapes':
-    from dataset.cityscapes import CityscapesDataset as Dataset
+    from src.dataset.cityscapes import CityscapesDataset as Dataset
     net_config['output_channels'] = 19
     classes = np.arange(1, 19)
 elif dataset == 'sherbrooke':
-    from dataset.sherbrooke import SherbrookeDataset as Dataset
+    from src.dataset.sherbrooke import SherbrookeDataset as Dataset
     #net_config['output_channels'] = 2
     #classes = np.arange(1, 2)
 else:
@@ -335,76 +313,57 @@ for i_epoch in range(start_epoch, max_epoch):
         logger.info(f'BatchNorm layers will be turned to "eval" mode, i.e. frozen.')
         model.apply(set_bn_eval)
 
-    if not valid_only:
-        #tqdm for progress bar
-        with tqdm(train_loader) as _tqdm:
-            for batched in _tqdm:
-                images, labels = batched
-                if fp16:
-                    images = images.half()
-                images, labels = images.to(device), labels.to(device)
-                optimizer.zero_grad()
-                preds = model(images)
-                if net_type == 'deeplab':
-                    preds = F.interpolate(preds, size=labels.shape[1:], mode='bilinear', align_corners=True)
-                if fp16:
-                    loss = loss_fn(preds.float(), labels)
-                else:
-                    loss = loss_fn(preds, labels)
+    #tqdm for progress bar
+    # with tqdm(train_loader) as _tqdm:
+    #     for batched in _tqdm:
+    #         images, labels = batched
+    #         if fp16:
+    #             images = images.half()
+    #         images, labels = images.to(device), labels.to(device)
+    #         optimizer.zero_grad()
+    #         preds = model(images)
+    #         if net_type == 'deeplab':
+    #             preds = F.interpolate(preds, size=labels.shape[1:], mode='bilinear', align_corners=True)
+    #         if fp16:
+    #             loss = loss_fn(preds.float(), labels)
+    #         else:
+    #             loss = loss_fn(preds, labels)
+    #
+    #         preds_np = preds.detach().cpu().numpy()
+    #         labels_np = labels.detach().cpu().numpy()
+    #         iou = compute_iou_batch(np.argmax(preds_np, axis=1), labels_np, classes)
+    #
+    #         _tqdm.set_postfix(OrderedDict(seg_loss=f'{loss.item():.5f}', iou=f'{iou:.3f}'))
+    #         train_losses.append(loss.item())
+    #         train_ious.append(iou)
+    #
+    #         if fp16:
+    #             optimizer.backward(loss)
+    #         else:
+    #             loss.backward()
+    #         optimizer.step()
 
-                preds_np = preds.detach().cpu().numpy()
-                labels_np = labels.detach().cpu().numpy()
-                iou = compute_iou_batch(np.argmax(preds_np, axis=1), labels_np, classes)
-
-                _tqdm.set_postfix(OrderedDict(seg_loss=f'{loss.item():.5f}', iou=f'{iou:.3f}'))
-                train_losses.append(loss.item())
-                train_ious.append(iou)
-
-                if fp16:
-                    optimizer.backward(loss)
-                else:
-                    loss.backward()
-                optimizer.step()
-
-        if scheduler:
-            scheduler.step()
-
-        if torch.cuda.device_count() > 1:
-            torch.save(model.module.state_dict(), output_dir.joinpath('model_tmp.pth'))
-        else:
-            torch.save(model.state_dict(), output_dir.joinpath('model_tmp.pth'))
-        torch.save(optimizer.state_dict(), output_dir.joinpath('opt_tmp.pth'))
+    if scheduler:
+        scheduler.step()
 
     train_loss = np.mean(train_losses)
     train_iou = np.nanmean(train_ious)
     logger.info(f'train loss: {train_loss}')
     logger.info(f'train iou: {train_iou}')
 
-    if (i_epoch + 1) % valid_per_x_epoch == 0:
+    if torch.cuda.device_count() > 1:
+        torch.save(model.module.state_dict(), output_dir.joinpath('model_tmp.pth'))
+    else:
+        torch.save(model.state_dict(), output_dir.joinpath('model_tmp.pth'))
+    torch.save(optimizer.state_dict(), output_dir.joinpath('opt_tmp.pth'))
+
+    if (i_epoch + 1) % 4 == 0:
         valid_losses = []
         valid_ious = []
-        valid_ious_post = []
 
-        if torch.cuda.device_count() == 1 or not tta: #no tta is advantageous if running on multi-gpu with batch_size > 1 for validation set. Also faster
-            val_model = model
-        else: # reloading model seems necessary when multi-gpu training while valid loop
-            # Network
-            val_model = load_model(out_channels=net_config['output_channels'], enc_type=net_config['enc_type'],
-                               dec_type=net_config['dec_type'], pretrained=net_config['pretrained'])
-            model_path = output_dir.joinpath(f'model_tmp.pth')
-            #logger.info(f'Evaluate from {model_path}')
-            param = torch.load(model_path)
-            # create new OrderedDict that does not contain `module.`
-            #new_state_dict = OrderedDict()
-            #for k, v in param.items():
-            #    name = k[7:] # remove `module.`
-            #    new_state_dict[name] = v
-            # load params
-            #model = val_model.load_state_dict(new_state_dict)
-            val_model.load_state_dict(param)
-            val_model.to(device)
+        # Network switch to evaluation mode
+        model.eval()
 
-        val_model.eval()
         with torch.no_grad():
             with tqdm(valid_loader) as _tqdm:
                 for batched in _tqdm:
@@ -412,61 +371,32 @@ for i_epoch in range(start_epoch, max_epoch):
                     if fp16:
                         images = images.half()
                     images, labels = images.to(device), labels.to(device)
-                    if tta:
-                        preds = val_model.tta(images, net_type=net_type)
-                    else:
-                        preds = model(images)
-                        if net_type == 'deeplab':
-                            preds = F.interpolate(preds, size=labels.shape[1:], mode='bilinear', align_corners=True)
+                    preds = model(images)
+                    if net_type == 'deeplab':
+                        preds = F.interpolate(preds, size=labels.shape[1:], mode='bilinear', align_corners=True)
                     if fp16:
                         loss = loss_fn(preds.float(), labels)
                     else:
                         loss = loss_fn(preds, labels)
 
-                    pred_np = preds[0].detach().cpu().numpy()
-                    label_np = labels[0].detach().cpu().numpy()
+                    preds_np = preds.detach().cpu().numpy()
+                    labels_np = labels.detach().cpu().numpy()
+                    iou = compute_iou_batch(np.argmax(preds_np, axis=1), labels_np, classes)
 
-                    pred_np = np.argmax(pred_np, axis=0)
-
-                    iou = compute_iou_batch(pred_np, label_np, classes)
-
-                    pred_np[label_np == 0] = 0
-
-                    pred_np = topcrop(pred_np, croppix=1664, reverse=True)
-
-                    #pred_np = filter_by_contour(pred_np.astype(np.uint8)) #TODO debug...
-                    contours, hierarchy = cv2.findContours(pred_np.astype(np.uint8), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-
-                    img_path = valid_dataset.img_paths[_tqdm.format_dict['n']]
-                    img = np.array(Image.open(img_path))
-
-                    # loop over the (unsorted) contours and draw them
-                    for (i, c) in enumerate(contours):
-                        img = draw_contour(img, c, i)
-
-                    crack_overlay = vis_segmentation(pred_np, img, bbox=False)
-                    save_to_image(crack_overlay, img_path, Path(modelname).stem, 'threshold_overlay_200')
-
-                    iou_post = compute_iou_batch(pred_np, label_np, classes)
-
-                    _tqdm.set_postfix(OrderedDict(seg_loss=f'{loss.item():.5f}', iou=f'{iou:.3f}',
-                                                  iou_filtered=f'{iou_post:.3f}'))
+                    _tqdm.set_postfix(OrderedDict(seg_loss=f'{loss.item():.5f}', iou=f'{iou:.3f}'))
                     valid_losses.append(loss.item())
                     valid_ious.append(iou)
-                    valid_ious_post.append(iou_post)
 
         valid_loss = np.mean(valid_losses)
         valid_iou = np.nanmean(valid_ious)
-        valid_iou_post = np.nanmean(valid_ious)
         logger.info(f'valid seg loss: {valid_loss}')
         logger.info(f'valid iou: {valid_iou}')
-        logger.info(f'valid iou filtered: {valid_iou}')
 
-        if best_metrics < valid_iou and not valid_only:
+        if best_metrics < valid_iou:
             best_metrics = valid_iou
             best_epoch = i_epoch
             logger.info('Best Model!')
-            torch.save(val_model.state_dict(), output_dir.joinpath('model.pth'))
+            torch.save(model.state_dict(), output_dir.joinpath('model.pth'))
             torch.save(optimizer.state_dict(), output_dir.joinpath('opt.pth'))
 
     else:

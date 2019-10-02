@@ -7,9 +7,8 @@ import albumentations as albu
 import torch
 from torch.utils.data import DataLoader, Dataset
 
-from utils.preprocess import minmax_normalize, meanstd_normalize
-from utils.custum_aug import PadIfNeededRightBottom
-
+from src.utils.preprocess import minmax_normalize, meanstd_normalize
+from src.utils.custum_aug import PadIfNeededRightBottom
 
 class CityscapesDataset(Dataset):
     n_classes = 19
@@ -17,8 +16,11 @@ class CityscapesDataset(Dataset):
     valid_classes = [7, 8, 11, 12, 13, 17, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 31, 32, 33]
     class_map = dict(zip(valid_classes, range(n_classes)))
 
-    def __init__(self, base_dir='../data/cityscapes', split='train',
-                 affine_augmenter=None, image_augmenter=None, target_size=(1024, 2048),
+    def __init__(self, base_dir='../data/sherbrooke', split='train',
+                 affine_augmenter=None, image_augmenter=None, target_size=(1024, 2048), #original resolution
+                 #affine_augmenter=None, image_augmenter=None, target_size=(921, 1843), #if downscaled to 90%
+                 #affine_augmenter=None, image_augmenter=None, target_size=(384, 768), #if downscaled to 37,5%
+                 #affine_augmenter=None, image_augmenter=None, target_size=(128, 256), #if downscaled to 12,5%
                  net_type='unet', ignore_index=255, debug=False):
         self.debug = debug
         self.base_dir = Path(base_dir)
@@ -37,7 +39,7 @@ class CityscapesDataset(Dataset):
         if self.split == 'train':
             if self.net_type == 'deeplab':
                 target_size = (target_size[0] + 1, target_size[1] + 1)
-            self.resizer = albu.Compose([albu.RandomScale(scale_limit=(-0.5, 0.5), p=1.0),
+            self.resizer = albu.Compose([albu.RandomScale(scale_limit=(-0.7, 1), p=1.0),
                                          PadIfNeededRightBottom(min_height=target_size[0], min_width=target_size[1],
                                                                 value=0, ignore_index=self.ignore_index, p=1.0),
                                          albu.RandomCrop(height=target_size[0], width=target_size[1], p=1.0)])
@@ -84,6 +86,7 @@ class CityscapesDataset(Dataset):
                 img = minmax_normalize(img)
                 img = meanstd_normalize(img, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
             else:
+                #ex.: pixel value 144 --> 144/255 if norm range (0,1)
                 img = minmax_normalize(img, norm_range=(-1, 1))
             if self.resizer:
                 resized = self.resizer(image=img, mask=lbl)
@@ -100,7 +103,7 @@ class CityscapesDataset(Dataset):
                 img = img.transpose(2, 0, 1)
                 img = torch.FloatTensor(img)
                 lbl = torch.LongTensor(lbl)
-            return img, lbl, img_path.stem
+            return img, lbl
 
     def encode_mask(self, lbl):
         for c in self.void_classes:
@@ -115,7 +118,7 @@ if __name__ == '__main__':
 
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
-    from utils.custum_aug import Rotate
+    from src.utils.custum_aug import Rotate
 
     affine_augmenter = albu.Compose([albu.HorizontalFlip(p=.5),
                                      # Rotate(5, p=.5)
@@ -129,7 +132,7 @@ if __name__ == '__main__':
     print(len(dataset))
 
     for i, batched in enumerate(dataloader):
-        images, labels, _ = batched
+        images, labels = batched
         if i == 0:
             fig, axes = plt.subplots(8, 2, figsize=(20, 48))
             plt.tight_layout()
@@ -140,6 +143,6 @@ if __name__ == '__main__':
                 axes[j][0].set_yticks([])
                 axes[j][1].set_xticks([])
                 axes[j][1].set_yticks([])
-            plt.savefig('dataset/cityscapes.png')
+            plt.savefig('dataset/cityscapes2.png')
             plt.close()
         break

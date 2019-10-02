@@ -80,57 +80,6 @@ class EncoderDecoderNet(nn.Module, SegmentatorTTA):
         return logits
 
 
-class SPPNet(nn.Module, SegmentatorTTA):
-    def __init__(self, output_channels=19, enc_type='xception65', dec_type='aspp', output_stride=8, pretrained=False):
-        super().__init__()
-        self.output_channels = output_channels
-        self.enc_type = enc_type
-        self.dec_type = dec_type
-
-        assert enc_type in ['xception65', 'mobilenetv2', 'efficientnet-b4']
-        assert dec_type in ['oc_base', 'oc_asp', 'spp', 'aspp', 'maspp']
-
-        self.encoder = create_encoder(enc_type, output_stride=output_stride, pretrained=pretrained)
-        if enc_type == 'mobilenetv2':
-            self.spp = create_mspp(dec_type)
-        else:
-            self.spp, self.decoder = create_spp(dec_type, output_stride=output_stride)
-        self.logits = nn.Conv2d(256, output_channels, 1)
-
-    def forward(self, inputs):
-        if self.enc_type == 'mobilenetv2':
-            x = self.encoder(inputs)
-            x = self.spp(x)
-            x = self.logits(x)
-            return x
-        else:
-            x, low_level_feat = self.encoder(inputs)
-            x = self.spp(x)
-            x = self.decoder(x, low_level_feat)
-            x = self.logits(x)
-            return x
-
-    def freeze_bn(self):
-        for m in self.modules():
-            if isinstance(m, nn.modules.batchnorm._BatchNorm):
-                m.eval()
-                # for p in m.parameters():
-                #     p.requires_grad = False
-
-    def get_1x_lr_params(self):
-        for p in self.encoder.parameters():
-            yield p
-
-    def get_10x_lr_params(self):
-        modules = [self.spp, self.logits]
-        if hasattr(self, 'decoder'):
-            modules.append(self.decoder)
-
-        for module in modules:
-            for p in module.parameters():
-                yield p
-
-
 __all__ = ['EfficientUnet', 'get_efficientunet_b0', 'get_efficientunet_b1', 'get_efficientunet_b2',
            'get_efficientunet_b3', 'get_efficientunet_b4', 'get_efficientunet_b5', 'get_efficientunet_b6',
            'get_efficientunet_b7']
@@ -139,12 +88,7 @@ class EfficientUnet(nn.Module, SegmentatorTTA):
     def __init__(self, encoder, out_channels=2, concat_input=True, pretrained=True):
         super().__init__()
 
-        if encoder == 'efficientnet-b4':
-            self.encoder = create_encoder(encoder, pretrained=pretrained)
-        else:
-            raise NotImplementedError('Has not been tested with other EfficientNet encoder than EfficientNet-b4. '
-                                      'A vos risques et perils')
-
+        self.encoder = create_encoder(encoder, pretrained=pretrained)
         self.concat_input = concat_input
 
         self.up_conv1 = up_conv(self.n_channels, 512)
@@ -216,8 +160,9 @@ class SPPNetEncoder(nn.Module, SegmentatorTTA):
 
         assert enc_type in ['xception65', 'mobilenetv2']
 
-        #self.encoder = create_encoder(enc_type, output_stride=output_stride, pretrained=True)
-        self.encoder = create_encoder(enc_type, output_stride=output_stride, pretrained=False)
+        pretrained = True if not pretrained_path else False
+
+        self.encoder = create_encoder(enc_type, output_stride=output_stride, pretrained=pretrained)
 
     #def load_weights(self, pretrained_path=False):
         #if not pretrained_path:
@@ -257,8 +202,8 @@ class SPPNetDecoder(nn.Module, SegmentatorTTA):
         #self.encoder = create_encoder(enc_type, output_stride=output_stride, pretrained=True)
         #self.encoder = create_encoder(enc_type, output_stride=output_stride, pretrained=False)
         if enc_type == 'mobilenetv2':
-            raise NotImplementedError
-            #self.spp = create_mspp(dec_type)
+            #raise NotImplementedError
+            self.spp = create_mspp(dec_type)
         else:
             self.spp, self.decoder = create_spp(dec_type, output_stride=output_stride)
         self.logits = nn.Conv2d(256, output_channels, 1)
@@ -278,12 +223,12 @@ class SPPNetDecoder(nn.Module, SegmentatorTTA):
                 self.load_state_dict(param, strict=False)
             del param
 
-    def forward(self, embedding, low_level_feat):
+    def forward(self, embedding, low_level_feat=None):
         if self.enc_type == 'mobilenetv2':
-            raise NotImplementedError
-            #x = self.spp(inputs)
-            #x = self.logits(x)
-            #return x
+            #raise NotImplementedError
+            x = self.spp(embedding)
+            x = self.logits(x)
+            return x
         else:
             #x, low_level_feat = self.encoder(inputs)
             embedding = self.spp(embedding)
@@ -309,8 +254,14 @@ class SPPNetMulti(nn.Module, SegmentatorTTA):
 
     def forward(self, inputs):
         if self.enc_type == 'mobilenetv2':
-            raise NotImplementedError
+            #raise NotImplementedError
+            x = self.encoder.encoder(inputs)
+            x_task1 = self.decoder_task1(x)
+            x_task2 = self.decoder_task2(x)
+            x_task3 = self.decoder_task3(x)
+
         else:
+            print('TODO: check that forward pass incorporates logits...')
             x, low_level_feat = self.encoder.encoder(inputs)
             x = self.decoder_task1.spp(x)
             x_task1 = self.decoder_task1.decoder(x, low_level_feat)

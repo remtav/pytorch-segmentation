@@ -23,6 +23,9 @@ def compute_iou_batch(preds, labels, classes=None):
     iou = np.nanmean([np.nanmean(compute_ious(pred, label, classes)) for pred, label in zip(preds, labels)])
     return iou
 
+def confusion_matrix(pred, label):
+    overlay = np.add(pred,label)
+    return overlay
 
 def iou_analyzer(preds, labels, tods):
     mIoU = np.nanmean([np.nanmean(compute_ious(pred, label, [1, 2, 3, 4])) for pred, label in zip(preds, labels)])

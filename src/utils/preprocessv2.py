@@ -2,23 +2,14 @@ import numpy as np
 import cv2
 from PIL import Image
 
-def topcrop(img_array, topcrop_prop = 0.5, reverse = False): #TODO: use without PIL, implement different topcrop_prop value
-    if topcrop_prop != 0.5:
-        raise NotImplementedError ('This method is not implemented for cropping a different proportion than 50% of image. On my TODO list...')
-    if reverse:
-        #restore original aspect ratio by adding top half pixels
-        top_restore = np.zeros((img_array.shape[0],img_array.shape[1]), dtype=int)
-        # bot_restore = np.zeros((82, pred.shape[1]), dtype=int)
-        img = np.concatenate((top_restore, img_array), axis=0)
-        #pred = np.concatenate((top_restore, pred, bot_restore), axis=0)
-    else:
-        img = Image.fromarray(img_array)
-        # keep only region with sidewalk
-        top_crop = int(img.size[1] * topcrop_prop)
-        #bottom_crop = int(img.size[1] * 0.96)
-        img = img.crop((0, top_crop, img.size[0], img.size[1]))#, bottom_crop))
-        img = np.array(img)
-    return img
+def topcrop(img_array, topcrop_prop = 0.5):
+    img = Image.fromarray(img_array)
+    # keep only region with sidewalk
+    top_crop = int(img.size[1] * topcrop_prop)
+    #bottom_crop = int(img.size[1] * 0.96)
+    img = img.crop((0, top_crop, img.size[0], img.size[1]))#, bottom_crop))
+    preproc_img = np.array(img)
+    return preproc_img
 
 def rescale(img_array, max_size=4096):
     img = Image.fromarray(img_array)

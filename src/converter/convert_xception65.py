@@ -3,7 +3,10 @@ from pathlib import Path
 
 import tensorflow as tf
 import torch
-from models.net import SPPNet
+try:
+    from src.models.net import SPPNet
+except:
+    from src.models.net import SPPNet
 
 
 def convert_xception65(ckpt_path, num_classes):
@@ -40,6 +43,7 @@ def convert_xception65(ckpt_path, num_classes):
 
     reader = tf.train.NewCheckpointReader(ckpt_path)
     model = SPPNet(num_classes, enc_type='xception65', dec_type='aspp', output_stride=8)
+    #print(model.state_dict()['logits.weight'].shape)
 
     # Xception
     ## Entry flow
@@ -91,7 +95,7 @@ def convert_xception65(ckpt_path, num_classes):
     sepconv_converter(model.decoder.sep2.block, 'decoder/decoder_conv1')
 
     # Logits
-    conv_converter(model.logits, 'logits/semantic', bias=True)
+    #conv_converter(model.logits, 'logits/semantic', bias=True)
 
     return model
 
@@ -106,7 +110,8 @@ if __name__ == '__main__':
     ckpt_path = args.ckpt_path
     num_classes = args.num_classes
     output_path = Path(args.output_path)
-    output_path.parent.mkdir()
+    output_path.parent.mkdir(exist_ok=True)
 
     model = convert_xception65(ckpt_path, num_classes)
+    #print(model.state_dict()['logits.weight'].shape)
     torch.save(model.state_dict(), output_path)

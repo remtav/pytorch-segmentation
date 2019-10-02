@@ -3,7 +3,10 @@ from pathlib import Path
 
 import tensorflow as tf
 import torch
-from models.net import SPPNet
+try:
+    from src.models.net import SPPNet
+except:
+    from src.models.net import SPPNet
 
 
 def convert_mobilenetv2(ckpt_path, num_classes):

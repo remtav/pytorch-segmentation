@@ -1,3 +1,4 @@
+#TTA stands for test-time augmentation
 import torch.nn.functional as F
 
 class SegmentatorTTA(object):
@@ -22,13 +23,18 @@ class SegmentatorTTA(object):
             else:
                 return F.interpolate(pred, size=(h, w), mode='bilinear', align_corners=True)
         else:
+            #jumps to forward method in net.py, with padded input
             pred = self.forward(F.pad(x, (0, 1, 0, 1)))
+            #what is "F"?
             return F.interpolate(pred, size=(h+1, w+1), mode='bilinear', align_corners=True)[..., :h, :w]
 
     def tta(self, x, scales=None, net_type='unet'):
+        #x is images as tensor
         size = x.shape[2:]
         if scales is None:
+            #jumps to function above "pred_resize"
             seg_sum = self.pred_resize(x, size, net_type)
+            #repeats this with horizontal flip? then, divides by 2?
             seg_sum += self.hflip(self.pred_resize(self.hflip(x), size, net_type))
             return seg_sum / 2
         else:
