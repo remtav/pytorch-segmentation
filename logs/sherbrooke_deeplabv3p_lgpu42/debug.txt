@@ -1,0 +1,578 @@
+2019-07-31 15:05:24,802 train 114 [DEBUG][<module>] {'Net': {'output_channels': 2, 'enc_type': 'mobilenetv2', 'dec_type': 'maspp', 'output_stride': 8, 'pretrained_path': '../model/cityscapes_deeplab_v3_plus_mnv2_2cl/model.pth'}, 'Data': {'target_size': '(512,512)', 'defects': False}, 'Train': {'max_epoch': 2400, 'batch_size': 8, 'fp16': False, 'resume': False, 'freeze_to_layer': False, 'freeze_bn': False}, 'Loss': {'loss_type': 'Lovasz', 'ignore_index': 255}, 'Optimizer': {'mode': 'adabound', 'base_lr': 0.0007, 't_max': 30}}
+2019-07-31 15:05:24,802 train 115 [INFO][<module>] Device: cuda:0
+2019-07-31 15:05:24,802 train 116 [INFO][<module>] Max Epoch: 2400
+2019-07-31 15:05:24,802 train 117 [INFO][<module>] Batch size: 8
+2019-07-31 15:05:24,839 train 174 [INFO][<module>] Number of workers for train Dataloader: 16
+2019-07-31 15:05:24,839 train 234 [INFO][<module>] Let's use 4 GPUs!
+2019-07-31 15:05:33,101 train 242 [INFO][<module>] Epoch: 0
+2019-07-31 15:05:33,102 train 243 [INFO][<module>] Learning rate: 0.0007
+2019-07-31 15:06:17,259 train 332 [INFO][<module>] train loss task 1: 0.27232
+train loss task 2: 0.14012
+train loss task 3: 0.09217
+2019-07-31 15:06:17,259 train 333 [INFO][<module>] train iou task 1: 0.452
+train iou task2: 0.006
+train iou task3: 0.012
+2019-07-31 15:06:18,068 train 242 [INFO][<module>] Epoch: 1
+2019-07-31 15:06:18,068 train 243 [INFO][<module>] Learning rate: 0.000692351660256832
+2019-07-31 15:06:44,488 train 332 [INFO][<module>] train loss task 1: 0.17497
+train loss task 2: 0.10605
+train loss task 3: 0.04767
+2019-07-31 15:06:44,489 train 333 [INFO][<module>] train iou task 1: 0.645
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:06:45,035 train 242 [INFO][<module>] Epoch: 2
+2019-07-31 15:06:45,035 train 243 [INFO][<module>] Learning rate: 0.0006828697807033038
+2019-07-31 15:07:12,366 train 332 [INFO][<module>] train loss task 1: 0.13981
+train loss task 2: 0.09676
+train loss task 3: 0.04451
+2019-07-31 15:07:12,367 train 333 [INFO][<module>] train iou task 1: 0.693
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:07:12,923 train 242 [INFO][<module>] Epoch: 3
+2019-07-31 15:07:12,923 train 243 [INFO][<module>] Learning rate: 0.0006697409101749102
+2019-07-31 15:07:39,490 train 332 [INFO][<module>] train loss task 1: 0.13291
+train loss task 2: 0.09438
+train loss task 3: 0.03934
+2019-07-31 15:07:39,491 train 333 [INFO][<module>] train iou task 1: 0.711
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:08:32,722 train 408 [INFO][<module>] val loss task 1: 0.14328
+val loss task 2: 0.53913
+val loss task 3: 0.50346
+2019-07-31 15:08:32,722 train 410 [INFO][<module>] val iou task 1: 0.743
+val iou task2: 0.000
+val iou task3: 0.000
+2019-07-31 15:08:32,722 train 416 [INFO][<module>] Best Model!
+2019-07-31 15:08:33,310 train 242 [INFO][<module>] Epoch: 4
+2019-07-31 15:08:33,310 train 243 [INFO][<module>] Learning rate: 0.0006531088913245536
+2019-07-31 15:08:59,285 train 332 [INFO][<module>] train loss task 1: 0.11574
+train loss task 2: 0.11604
+train loss task 3: 0.05835
+2019-07-31 15:08:59,285 train 333 [INFO][<module>] train iou task 1: 0.731
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:08:59,806 train 242 [INFO][<module>] Epoch: 5
+2019-07-31 15:08:59,807 train 243 [INFO][<module>] Learning rate: 0.0006331559480312316
+2019-07-31 15:09:26,573 train 332 [INFO][<module>] train loss task 1: 0.11508
+train loss task 2: 0.10109
+train loss task 3: 0.05626
+2019-07-31 15:09:26,573 train 333 [INFO][<module>] train iou task 1: 0.747
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:09:27,004 train 242 [INFO][<module>] Epoch: 6
+2019-07-31 15:09:27,004 train 243 [INFO][<module>] Learning rate: 0.000610100688917088
+2019-07-31 15:09:53,019 train 332 [INFO][<module>] train loss task 1: 0.11471
+train loss task 2: 0.08780
+train loss task 3: 0.04367
+2019-07-31 15:09:53,019 train 333 [INFO][<module>] train iou task 1: 0.739
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:09:53,616 train 242 [INFO][<module>] Epoch: 7
+2019-07-31 15:09:53,616 train 243 [INFO][<module>] Learning rate: 0.0005841957122256004
+2019-07-31 15:10:19,714 train 332 [INFO][<module>] train loss task 1: 0.10758
+train loss task 2: 0.09660
+train loss task 3: 0.05102
+2019-07-31 15:10:19,714 train 333 [INFO][<module>] train iou task 1: 0.747
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:11:07,710 train 408 [INFO][<module>] val loss task 1: 0.09576
+val loss task 2: 0.53907
+val loss task 3: 0.50334
+2019-07-31 15:11:07,711 train 410 [INFO][<module>] val iou task 1: 0.828
+val iou task2: 0.000
+val iou task3: 0.000
+2019-07-31 15:11:07,711 train 416 [INFO][<module>] Best Model!
+2019-07-31 15:11:08,238 train 242 [INFO][<module>] Epoch: 8
+2019-07-31 15:11:08,238 train 243 [INFO][<module>] Learning rate: 0.0005557248383023656
+2019-07-31 15:11:35,543 train 332 [INFO][<module>] train loss task 1: 0.11296
+train loss task 2: 0.10698
+train loss task 3: 0.05207
+2019-07-31 15:11:35,543 train 333 [INFO][<module>] train iou task 1: 0.742
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:11:36,091 train 242 [INFO][<module>] Epoch: 9
+2019-07-31 15:11:36,091 train 243 [INFO][<module>] Learning rate: 0.000525
+2019-07-31 15:12:02,920 train 332 [INFO][<module>] train loss task 1: 0.09753
+train loss task 2: 0.10421
+train loss task 3: 0.05010
+2019-07-31 15:12:02,920 train 333 [INFO][<module>] train iou task 1: 0.781
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:12:03,390 train 242 [INFO][<module>] Epoch: 10
+2019-07-31 15:12:03,391 train 243 [INFO][<module>] Learning rate: 0.0004923578250765301
+2019-07-31 15:12:29,649 train 332 [INFO][<module>] train loss task 1: 0.09201
+train loss task 2: 0.11025
+train loss task 3: 0.05143
+2019-07-31 15:12:29,649 train 333 [INFO][<module>] train iou task 1: 0.787
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:12:30,116 train 242 [INFO][<module>] Epoch: 11
+2019-07-31 15:12:30,116 train 243 [INFO][<module>] Learning rate: 0.0004581559480312316
+2019-07-31 15:12:56,650 train 332 [INFO][<module>] train loss task 1: 0.09672
+train loss task 2: 0.10401
+train loss task 3: 0.04897
+2019-07-31 15:12:56,650 train 333 [INFO][<module>] train iou task 1: 0.781
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:13:44,768 train 408 [INFO][<module>] val loss task 1: 0.08260
+val loss task 2: 0.53977
+val loss task 3: 0.50325
+2019-07-31 15:13:44,768 train 410 [INFO][<module>] val iou task 1: 0.846
+val iou task2: 0.000
+val iou task3: 0.000
+2019-07-31 15:13:44,768 train 416 [INFO][<module>] Best Model!
+2019-07-31 15:13:45,360 train 242 [INFO][<module>] Epoch: 12
+2019-07-31 15:13:45,360 train 243 [INFO][<module>] Learning rate: 0.0004227690917862157
+2019-07-31 15:14:12,375 train 332 [INFO][<module>] train loss task 1: 0.08302
+train loss task 2: 0.11320
+train loss task 3: 0.05498
+2019-07-31 15:14:12,375 train 333 [INFO][<module>] train iou task 1: 0.799
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:14:12,856 train 242 [INFO][<module>] Epoch: 13
+2019-07-31 15:14:12,856 train 243 [INFO][<module>] Learning rate: 0.00038658496214367873
+2019-07-31 15:14:39,666 train 332 [INFO][<module>] train loss task 1: 0.08314
+train loss task 2: 0.09880
+train loss task 3: 0.04544
+2019-07-31 15:14:39,667 train 333 [INFO][<module>] train iou task 1: 0.799
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:14:40,127 train 242 [INFO][<module>] Epoch: 14
+2019-07-31 15:14:40,128 train 243 [INFO][<module>] Learning rate: 0.00035000000000000005
+2019-07-31 15:15:07,473 train 332 [INFO][<module>] train loss task 1: 0.08326
+train loss task 2: 0.11245
+train loss task 3: 0.05693
+2019-07-31 15:15:07,473 train 333 [INFO][<module>] train iou task 1: 0.806
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:15:07,971 train 242 [INFO][<module>] Epoch: 15
+2019-07-31 15:15:07,971 train 243 [INFO][<module>] Learning rate: 0.0003134150378563213
+2019-07-31 15:15:34,485 train 332 [INFO][<module>] train loss task 1: 0.08247
+train loss task 2: 0.11801
+train loss task 3: 0.05223
+2019-07-31 15:15:34,485 train 333 [INFO][<module>] train iou task 1: 0.807
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:16:22,645 train 408 [INFO][<module>] val loss task 1: 0.11376
+val loss task 2: 0.53957
+val loss task 3: 0.50327
+2019-07-31 15:16:22,645 train 410 [INFO][<module>] val iou task 1: 0.800
+val iou task2: 0.000
+val iou task3: 0.000
+2019-07-31 15:16:23,203 train 242 [INFO][<module>] Epoch: 16
+2019-07-31 15:16:23,203 train 243 [INFO][<module>] Learning rate: 0.0002772309082137842
+2019-07-31 15:16:50,254 train 332 [INFO][<module>] train loss task 1: 0.08349
+train loss task 2: 0.09562
+train loss task 3: 0.04423
+2019-07-31 15:16:50,254 train 333 [INFO][<module>] train iou task 1: 0.810
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:16:50,858 train 242 [INFO][<module>] Epoch: 17
+2019-07-31 15:16:50,858 train 243 [INFO][<module>] Learning rate: 0.00024184405196876844
+2019-07-31 15:17:17,667 train 332 [INFO][<module>] train loss task 1: 0.08093
+train loss task 2: 0.11092
+train loss task 3: 0.05745
+2019-07-31 15:17:17,668 train 333 [INFO][<module>] train iou task 1: 0.809
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:17:18,152 train 242 [INFO][<module>] Epoch: 18
+2019-07-31 15:17:18,152 train 243 [INFO][<module>] Learning rate: 0.00020764217492346998
+2019-07-31 15:17:44,585 train 332 [INFO][<module>] train loss task 1: 0.08159
+train loss task 2: 0.10897
+train loss task 3: 0.04242
+2019-07-31 15:17:44,586 train 333 [INFO][<module>] train iou task 1: 0.819
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:17:45,080 train 242 [INFO][<module>] Epoch: 19
+2019-07-31 15:17:45,080 train 243 [INFO][<module>] Learning rate: 0.00017500000000000008
+2019-07-31 15:18:12,335 train 332 [INFO][<module>] train loss task 1: 0.06598
+train loss task 2: 0.10076
+train loss task 3: 0.04808
+2019-07-31 15:18:12,335 train 333 [INFO][<module>] train iou task 1: 0.843
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:19:00,467 train 408 [INFO][<module>] val loss task 1: 0.07499
+val loss task 2: 0.53969
+val loss task 3: 0.50325
+2019-07-31 15:19:00,467 train 410 [INFO][<module>] val iou task 1: 0.862
+val iou task2: 0.000
+val iou task3: 0.000
+2019-07-31 15:19:00,467 train 416 [INFO][<module>] Best Model!
+2019-07-31 15:19:01,133 train 242 [INFO][<module>] Epoch: 20
+2019-07-31 15:19:01,133 train 243 [INFO][<module>] Learning rate: 0.00014427516169763445
+2019-07-31 15:19:27,686 train 332 [INFO][<module>] train loss task 1: 0.07415
+train loss task 2: 0.10060
+train loss task 3: 0.04640
+2019-07-31 15:19:27,687 train 333 [INFO][<module>] train iou task 1: 0.832
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:19:28,241 train 242 [INFO][<module>] Epoch: 21
+2019-07-31 15:19:28,241 train 243 [INFO][<module>] Learning rate: 0.00011580428777439973
+2019-07-31 15:19:54,905 train 332 [INFO][<module>] train loss task 1: 0.07572
+train loss task 2: 0.09307
+train loss task 3: 0.02935
+2019-07-31 15:19:54,905 train 333 [INFO][<module>] train iou task 1: 0.823
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:19:55,333 train 242 [INFO][<module>] Epoch: 22
+2019-07-31 15:19:55,333 train 243 [INFO][<module>] Learning rate: 8.989931108291209e-05
+2019-07-31 15:20:22,203 train 332 [INFO][<module>] train loss task 1: 0.08051
+train loss task 2: 0.10498
+train loss task 3: 0.05059
+2019-07-31 15:20:22,203 train 333 [INFO][<module>] train iou task 1: 0.805
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:20:22,694 train 242 [INFO][<module>] Epoch: 23
+2019-07-31 15:20:22,694 train 243 [INFO][<module>] Learning rate: 6.684405196876843e-05
+2019-07-31 15:20:49,255 train 332 [INFO][<module>] train loss task 1: 0.08142
+train loss task 2: 0.11818
+train loss task 3: 0.06023
+2019-07-31 15:20:49,255 train 333 [INFO][<module>] train iou task 1: 0.814
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:21:37,122 train 408 [INFO][<module>] val loss task 1: 0.07341
+val loss task 2: 0.53968
+val loss task 3: 0.50325
+2019-07-31 15:21:37,122 train 410 [INFO][<module>] val iou task 1: 0.862
+val iou task2: 0.000
+val iou task3: 0.000
+2019-07-31 15:21:37,122 train 416 [INFO][<module>] Best Model!
+2019-07-31 15:21:37,768 train 242 [INFO][<module>] Epoch: 24
+2019-07-31 15:21:37,768 train 243 [INFO][<module>] Learning rate: 4.689110867544645e-05
+2019-07-31 15:22:05,055 train 332 [INFO][<module>] train loss task 1: 0.08112
+train loss task 2: 0.12561
+train loss task 3: 0.06483
+2019-07-31 15:22:05,055 train 333 [INFO][<module>] train iou task 1: 0.815
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:22:05,551 train 242 [INFO][<module>] Epoch: 25
+2019-07-31 15:22:05,551 train 243 [INFO][<module>] Learning rate: 3.0259089825089657e-05
+2019-07-31 15:22:32,548 train 332 [INFO][<module>] train loss task 1: 0.07011
+train loss task 2: 0.10139
+train loss task 3: 0.05130
+2019-07-31 15:22:32,548 train 333 [INFO][<module>] train iou task 1: 0.835
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:22:33,030 train 242 [INFO][<module>] Epoch: 26
+2019-07-31 15:22:33,030 train 243 [INFO][<module>] Learning rate: 1.7130219296696264e-05
+2019-07-31 15:23:00,264 train 332 [INFO][<module>] train loss task 1: 0.07139
+train loss task 2: 0.11056
+train loss task 3: 0.04917
+2019-07-31 15:23:00,264 train 333 [INFO][<module>] train iou task 1: 0.833
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:23:00,709 train 242 [INFO][<module>] Epoch: 27
+2019-07-31 15:23:00,709 train 243 [INFO][<module>] Learning rate: 7.648339743168008e-06
+2019-07-31 15:23:26,961 train 332 [INFO][<module>] train loss task 1: 0.07739
+train loss task 2: 0.10862
+train loss task 3: 0.05365
+2019-07-31 15:23:26,961 train 333 [INFO][<module>] train iou task 1: 0.816
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:24:14,886 train 408 [INFO][<module>] val loss task 1: 0.07414
+val loss task 2: 0.53972
+val loss task 3: 0.50325
+2019-07-31 15:24:14,886 train 410 [INFO][<module>] val iou task 1: 0.863
+val iou task2: 0.000
+val iou task3: 0.000
+2019-07-31 15:24:15,335 train 242 [INFO][<module>] Epoch: 28
+2019-07-31 15:24:15,335 train 243 [INFO][<module>] Learning rate: 1.9173366211043096e-06
+2019-07-31 15:24:41,870 train 332 [INFO][<module>] train loss task 1: 0.08030
+train loss task 2: 0.11428
+train loss task 3: 0.05379
+2019-07-31 15:24:41,871 train 333 [INFO][<module>] train iou task 1: 0.810
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:24:42,340 train 242 [INFO][<module>] Epoch: 29
+2019-07-31 15:24:42,340 train 243 [INFO][<module>] Learning rate: 0.0007
+2019-07-31 15:25:08,390 train 332 [INFO][<module>] train loss task 1: 0.07458
+train loss task 2: 0.10841
+train loss task 3: 0.04651
+2019-07-31 15:25:08,390 train 333 [INFO][<module>] train iou task 1: 0.823
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:25:08,836 train 242 [INFO][<module>] Epoch: 30
+2019-07-31 15:25:08,836 train 243 [INFO][<module>] Learning rate: 0.0006980826633788957
+2019-07-31 15:25:36,361 train 332 [INFO][<module>] train loss task 1: 0.07357
+train loss task 2: 0.11200
+train loss task 3: 0.05409
+2019-07-31 15:25:36,362 train 333 [INFO][<module>] train iou task 1: 0.837
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:25:36,889 train 242 [INFO][<module>] Epoch: 31
+2019-07-31 15:25:36,889 train 243 [INFO][<module>] Learning rate: 0.000692351660256832
+2019-07-31 15:26:03,809 train 332 [INFO][<module>] train loss task 1: 0.07542
+train loss task 2: 0.10081
+train loss task 3: 0.05061
+2019-07-31 15:26:03,810 train 333 [INFO][<module>] train iou task 1: 0.815
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:26:51,848 train 408 [INFO][<module>] val loss task 1: 0.06762
+val loss task 2: 0.53961
+val loss task 3: 0.50326
+2019-07-31 15:26:51,848 train 410 [INFO][<module>] val iou task 1: 0.875
+val iou task2: 0.000
+val iou task3: 0.000
+2019-07-31 15:26:52,333 train 242 [INFO][<module>] Epoch: 32
+2019-07-31 15:26:52,333 train 243 [INFO][<module>] Learning rate: 0.0006828697807033038
+2019-07-31 15:27:19,055 train 332 [INFO][<module>] train loss task 1: 0.07955
+train loss task 2: 0.10612
+train loss task 3: 0.04905
+2019-07-31 15:27:19,055 train 333 [INFO][<module>] train iou task 1: 0.814
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:27:19,632 train 242 [INFO][<module>] Epoch: 33
+2019-07-31 15:27:19,632 train 243 [INFO][<module>] Learning rate: 0.0006697409101749102
+2019-07-31 15:27:46,743 train 332 [INFO][<module>] train loss task 1: 0.08483
+train loss task 2: 0.10332
+train loss task 3: 0.04916
+2019-07-31 15:27:46,744 train 333 [INFO][<module>] train iou task 1: 0.801
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:27:47,302 train 242 [INFO][<module>] Epoch: 34
+2019-07-31 15:27:47,303 train 243 [INFO][<module>] Learning rate: 0.0006531088913245536
+2019-07-31 15:28:14,310 train 332 [INFO][<module>] train loss task 1: 0.07708
+train loss task 2: 0.10441
+train loss task 3: 0.05116
+2019-07-31 15:28:14,310 train 333 [INFO][<module>] train iou task 1: 0.823
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:28:14,795 train 242 [INFO][<module>] Epoch: 35
+2019-07-31 15:28:14,795 train 243 [INFO][<module>] Learning rate: 0.0006331559480312316
+2019-07-31 15:28:40,903 train 332 [INFO][<module>] train loss task 1: 0.07241
+train loss task 2: 0.11007
+train loss task 3: 0.06128
+2019-07-31 15:28:40,904 train 333 [INFO][<module>] train iou task 1: 0.830
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:29:29,088 train 408 [INFO][<module>] val loss task 1: 0.07340
+val loss task 2: 0.53972
+val loss task 3: 0.50324
+2019-07-31 15:29:29,088 train 410 [INFO][<module>] val iou task 1: 0.862
+val iou task2: 0.000
+val iou task3: 0.000
+2019-07-31 15:29:29,520 train 242 [INFO][<module>] Epoch: 36
+2019-07-31 15:29:29,520 train 243 [INFO][<module>] Learning rate: 0.000610100688917088
+2019-07-31 15:29:56,434 train 332 [INFO][<module>] train loss task 1: 0.07867
+train loss task 2: 0.11464
+train loss task 3: 0.05239
+2019-07-31 15:29:56,434 train 333 [INFO][<module>] train iou task 1: 0.812
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:29:56,909 train 242 [INFO][<module>] Epoch: 37
+2019-07-31 15:29:56,909 train 243 [INFO][<module>] Learning rate: 0.0005841957122256004
+2019-07-31 15:30:23,213 train 332 [INFO][<module>] train loss task 1: 0.08363
+train loss task 2: 0.09720
+train loss task 3: 0.04308
+2019-07-31 15:30:23,213 train 333 [INFO][<module>] train iou task 1: 0.799
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:30:23,702 train 242 [INFO][<module>] Epoch: 38
+2019-07-31 15:30:23,703 train 243 [INFO][<module>] Learning rate: 0.0005557248383023656
+2019-07-31 15:30:50,832 train 332 [INFO][<module>] train loss task 1: 0.07208
+train loss task 2: 0.08713
+train loss task 3: 0.04147
+2019-07-31 15:30:50,833 train 333 [INFO][<module>] train iou task 1: 0.828
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:30:51,334 train 242 [INFO][<module>] Epoch: 39
+2019-07-31 15:30:51,334 train 243 [INFO][<module>] Learning rate: 0.000525
+2019-07-31 15:31:17,873 train 332 [INFO][<module>] train loss task 1: 0.07755
+train loss task 2: 0.11022
+train loss task 3: 0.05969
+2019-07-31 15:31:17,873 train 333 [INFO][<module>] train iou task 1: 0.814
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:32:05,758 train 408 [INFO][<module>] val loss task 1: 0.07482
+val loss task 2: 0.53982
+val loss task 3: 0.50324
+2019-07-31 15:32:05,758 train 410 [INFO][<module>] val iou task 1: 0.858
+val iou task2: 0.000
+val iou task3: 0.000
+2019-07-31 15:32:06,139 train 242 [INFO][<module>] Epoch: 40
+2019-07-31 15:32:06,139 train 243 [INFO][<module>] Learning rate: 0.0004923578250765301
+2019-07-31 15:32:32,930 train 332 [INFO][<module>] train loss task 1: 0.07601
+train loss task 2: 0.09703
+train loss task 3: 0.05144
+2019-07-31 15:32:32,930 train 333 [INFO][<module>] train iou task 1: 0.812
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:32:33,505 train 242 [INFO][<module>] Epoch: 41
+2019-07-31 15:32:33,506 train 243 [INFO][<module>] Learning rate: 0.0004581559480312316
+2019-07-31 15:33:00,628 train 332 [INFO][<module>] train loss task 1: 0.07600
+train loss task 2: 0.10966
+train loss task 3: 0.05232
+2019-07-31 15:33:00,629 train 333 [INFO][<module>] train iou task 1: 0.825
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:33:01,135 train 242 [INFO][<module>] Epoch: 42
+2019-07-31 15:33:01,135 train 243 [INFO][<module>] Learning rate: 0.0004227690917862157
+2019-07-31 15:33:27,795 train 332 [INFO][<module>] train loss task 1: 0.06806
+train loss task 2: 0.10054
+train loss task 3: 0.05107
+2019-07-31 15:33:27,795 train 333 [INFO][<module>] train iou task 1: 0.842
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:33:28,311 train 242 [INFO][<module>] Epoch: 43
+2019-07-31 15:33:28,311 train 243 [INFO][<module>] Learning rate: 0.00038658496214367873
+2019-07-31 15:33:54,826 train 332 [INFO][<module>] train loss task 1: 0.07262
+train loss task 2: 0.10558
+train loss task 3: 0.04887
+2019-07-31 15:33:54,826 train 333 [INFO][<module>] train iou task 1: 0.831
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:34:42,796 train 408 [INFO][<module>] val loss task 1: 0.05749
+val loss task 2: 0.53984
+val loss task 3: 0.50324
+2019-07-31 15:34:42,796 train 410 [INFO][<module>] val iou task 1: 0.891
+val iou task2: 0.000
+val iou task3: 0.000
+2019-07-31 15:34:42,796 train 416 [INFO][<module>] Best Model!
+2019-07-31 15:34:43,437 train 242 [INFO][<module>] Epoch: 44
+2019-07-31 15:34:43,437 train 243 [INFO][<module>] Learning rate: 0.00035000000000000005
+2019-07-31 15:35:10,825 train 332 [INFO][<module>] train loss task 1: 0.07032
+train loss task 2: 0.11138
+train loss task 3: 0.05499
+2019-07-31 15:35:10,825 train 333 [INFO][<module>] train iou task 1: 0.824
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:35:11,299 train 242 [INFO][<module>] Epoch: 45
+2019-07-31 15:35:11,299 train 243 [INFO][<module>] Learning rate: 0.0003134150378563213
+2019-07-31 15:35:38,163 train 332 [INFO][<module>] train loss task 1: 0.07787
+train loss task 2: 0.09276
+train loss task 3: 0.04265
+2019-07-31 15:35:38,164 train 333 [INFO][<module>] train iou task 1: 0.809
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:35:38,596 train 242 [INFO][<module>] Epoch: 46
+2019-07-31 15:35:38,596 train 243 [INFO][<module>] Learning rate: 0.0002772309082137842
+2019-07-31 15:36:04,877 train 332 [INFO][<module>] train loss task 1: 0.06987
+train loss task 2: 0.12021
+train loss task 3: 0.05072
+2019-07-31 15:36:04,877 train 333 [INFO][<module>] train iou task 1: 0.841
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:36:05,321 train 242 [INFO][<module>] Epoch: 47
+2019-07-31 15:36:05,321 train 243 [INFO][<module>] Learning rate: 0.00024184405196876844
+2019-07-31 15:36:32,916 train 332 [INFO][<module>] train loss task 1: 0.06741
+train loss task 2: 0.11537
+train loss task 3: 0.05743
+2019-07-31 15:36:32,916 train 333 [INFO][<module>] train iou task 1: 0.846
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:37:20,997 train 408 [INFO][<module>] val loss task 1: 0.06263
+val loss task 2: 0.53984
+val loss task 3: 0.50324
+2019-07-31 15:37:20,998 train 410 [INFO][<module>] val iou task 1: 0.881
+val iou task2: 0.000
+val iou task3: 0.000
+2019-07-31 15:37:20,998 train 416 [INFO][<module>] Best Model!
+2019-07-31 15:37:21,560 train 242 [INFO][<module>] Epoch: 48
+2019-07-31 15:37:21,560 train 243 [INFO][<module>] Learning rate: 0.00020764217492346998
+2019-07-31 15:37:47,786 train 332 [INFO][<module>] train loss task 1: 0.06852
+train loss task 2: 0.09967
+train loss task 3: 0.04845
+2019-07-31 15:37:47,787 train 333 [INFO][<module>] train iou task 1: 0.847
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:37:48,305 train 242 [INFO][<module>] Epoch: 49
+2019-07-31 15:37:48,305 train 243 [INFO][<module>] Learning rate: 0.00017500000000000008
+2019-07-31 15:38:15,061 train 332 [INFO][<module>] train loss task 1: 0.06724
+train loss task 2: 0.10182
+train loss task 3: 0.05494
+2019-07-31 15:38:15,062 train 333 [INFO][<module>] train iou task 1: 0.835
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:38:15,520 train 242 [INFO][<module>] Epoch: 50
+2019-07-31 15:38:15,520 train 243 [INFO][<module>] Learning rate: 0.00014427516169763445
+2019-07-31 15:38:41,919 train 332 [INFO][<module>] train loss task 1: 0.06271
+train loss task 2: 0.10825
+train loss task 3: 0.04312
+2019-07-31 15:38:41,919 train 333 [INFO][<module>] train iou task 1: 0.853
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:38:42,362 train 242 [INFO][<module>] Epoch: 51
+2019-07-31 15:38:42,362 train 243 [INFO][<module>] Learning rate: 0.00011580428777439973
+2019-07-31 15:39:08,473 train 332 [INFO][<module>] train loss task 1: 0.06711
+train loss task 2: 0.09672
+train loss task 3: 0.04258
+2019-07-31 15:39:08,473 train 333 [INFO][<module>] train iou task 1: 0.835
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:39:56,335 train 408 [INFO][<module>] val loss task 1: 0.05939
+val loss task 2: 0.53984
+val loss task 3: 0.50324
+2019-07-31 15:39:56,335 train 410 [INFO][<module>] val iou task 1: 0.888
+val iou task2: 0.000
+val iou task3: 0.000
+2019-07-31 15:39:56,749 train 242 [INFO][<module>] Epoch: 52
+2019-07-31 15:39:56,749 train 243 [INFO][<module>] Learning rate: 8.989931108291209e-05
+2019-07-31 15:40:23,171 train 332 [INFO][<module>] train loss task 1: 0.06311
+train loss task 2: 0.09699
+train loss task 3: 0.04136
+2019-07-31 15:40:23,171 train 333 [INFO][<module>] train iou task 1: 0.849
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:40:23,724 train 242 [INFO][<module>] Epoch: 53
+2019-07-31 15:40:23,724 train 243 [INFO][<module>] Learning rate: 6.684405196876843e-05
+2019-07-31 15:40:50,894 train 332 [INFO][<module>] train loss task 1: 0.06386
+train loss task 2: 0.11884
+train loss task 3: 0.05219
+2019-07-31 15:40:50,895 train 333 [INFO][<module>] train iou task 1: 0.858
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:40:51,361 train 242 [INFO][<module>] Epoch: 54
+2019-07-31 15:40:51,362 train 243 [INFO][<module>] Learning rate: 4.689110867544645e-05
+2019-07-31 15:41:18,491 train 332 [INFO][<module>] train loss task 1: 0.06821
+train loss task 2: 0.09864
+train loss task 3: 0.05225
+2019-07-31 15:41:18,492 train 333 [INFO][<module>] train iou task 1: 0.843
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:41:18,930 train 242 [INFO][<module>] Epoch: 55
+2019-07-31 15:41:18,930 train 243 [INFO][<module>] Learning rate: 3.0259089825089657e-05
+2019-07-31 15:41:46,083 train 332 [INFO][<module>] train loss task 1: 0.07049
+train loss task 2: 0.09658
+train loss task 3: 0.05297
+2019-07-31 15:41:46,084 train 333 [INFO][<module>] train iou task 1: 0.839
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:42:34,202 train 408 [INFO][<module>] val loss task 1: 0.06044
+val loss task 2: 0.53987
+val loss task 3: 0.50323
+2019-07-31 15:42:34,202 train 410 [INFO][<module>] val iou task 1: 0.885
+val iou task2: 0.000
+val iou task3: 0.000
+2019-07-31 15:42:34,203 train 416 [INFO][<module>] Best Model!
+2019-07-31 15:42:34,849 train 242 [INFO][<module>] Epoch: 56
+2019-07-31 15:42:34,849 train 243 [INFO][<module>] Learning rate: 1.7130219296696264e-05
+2019-07-31 15:43:01,228 train 332 [INFO][<module>] train loss task 1: 0.06900
+train loss task 2: 0.10371
+train loss task 3: 0.04868
+2019-07-31 15:43:01,229 train 333 [INFO][<module>] train iou task 1: 0.835
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:43:01,840 train 242 [INFO][<module>] Epoch: 57
+2019-07-31 15:43:01,841 train 243 [INFO][<module>] Learning rate: 7.648339743168008e-06
+2019-07-31 15:43:28,475 train 332 [INFO][<module>] train loss task 1: 0.06754
+train loss task 2: 0.10558
+train loss task 3: 0.04817
+2019-07-31 15:43:28,475 train 333 [INFO][<module>] train iou task 1: 0.836
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:43:28,983 train 242 [INFO][<module>] Epoch: 58
+2019-07-31 15:43:28,983 train 243 [INFO][<module>] Learning rate: 1.9173366211043096e-06
+2019-07-31 15:43:55,447 train 332 [INFO][<module>] train loss task 1: 0.06721
+train loss task 2: 0.09780
+train loss task 3: 0.05294
+2019-07-31 15:43:55,447 train 333 [INFO][<module>] train iou task 1: 0.839
+train iou task2: 0.000
+train iou task3: 0.000
+2019-07-31 15:43:55,941 train 242 [INFO][<module>] Epoch: 59
+2019-07-31 15:43:55,941 train 243 [INFO][<module>] Learning rate: 0.0007
+2019-07-31 15:44:22,583 train 332 [INFO][<module>] train loss task 1: 0.06272
+train loss task 2: 0.10207
+train loss task 3: 0.04417
+2019-07-31 15:44:22,584 train 333 [INFO][<module>] train iou task 1: 0.848
+train iou task2: 0.000
+train iou task3: 0.000

@@ -1,0 +1,7 @@
+2019-07-19 13:25:56,868 train 109 [DEBUG][<module>] {'Net': {'output_channels': 2, 'enc_type': 'resnet101', 'dec_type': 'unet_scse', 'pretrained': True}, 'Data': {'target_size': '(1024, 1024)'}, 'Train': {'max_epoch': 3, 'batch_size': 2, 'fp16': False, 'resume': False, 'pretrained_path': None}, 'Loss': {'loss_type': 'Lovasz', 'ignore_index': 255}, 'Optimizer': {'mode': 'sgd', 'base_lr': 0.007, 't_max': 30}}
+2019-07-19 13:25:56,868 train 110 [INFO][<module>] Device: cpu
+2019-07-19 13:25:56,869 train 111 [INFO][<module>] Max Epoch: 3
+2019-07-19 13:25:56,869 train 112 [INFO][<module>] Batch size: 2
+2019-07-19 13:25:56,950 train 164 [INFO][<module>] Number of workers for train Dataloader: 0
+2019-07-19 13:25:56,961 train 267 [INFO][<module>] Epoch: 0
+2019-07-19 13:25:56,962 train 268 [INFO][<module>] Learning rate: 0.007

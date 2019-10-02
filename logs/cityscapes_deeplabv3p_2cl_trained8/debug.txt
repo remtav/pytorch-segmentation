@@ -1,0 +1,6 @@
+2019-06-11 13:11:50,500 train 109 [DEBUG][<module>] {'Net': {'output_channels': 2, 'enc_type': 'xception65', 'dec_type': 'aspp', 'output_stride': 8}, 'Data': {'target_size': '(768,768)'}, 'Train': {'max_epoch': 20, 'batch_size': 4, 'fp16': False, 'resume': False, 'pretrained_path': '../model/cityscapes_2cl_deeplab_v3_plus/model.pth', 'freeze_to_layer': 'logits', 'freeze_bn': False}, 'Loss': {'loss_type': 'Lovasz', 'ignore_index': 255}, 'Optimizer': {'mode': 'adabound', 'base_lr': 0.001, 't_max': 30}}
+2019-06-11 13:11:50,501 train 110 [INFO][<module>] Device: cpu
+2019-06-11 13:11:50,501 train 111 [INFO][<module>] Max Epoch: 20
+2019-06-11 13:11:50,501 train 112 [INFO][<module>] Batch size: 4
+2019-06-11 13:11:50,582 train 164 [INFO][<module>] Number of workers for train Dataloader: 0
+2019-06-11 13:11:50,582 train 168 [INFO][<module>] Resume from ../model/cityscapes_2cl_deeplab_v3_plus/model.pth

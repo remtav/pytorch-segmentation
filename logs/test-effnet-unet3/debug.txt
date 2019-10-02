@@ -1,0 +1,7 @@
+2019-07-24 16:24:44,003 train 120 [DEBUG][<module>] {'Net': {'output_channels': 2, 'enc_type': 'efficientnet-b4', 'dec_type': 'aspp', 'output_stride': 8, 'pretrained': True}, 'Data': {'target_size': '(512, 512)'}, 'Train': {'max_epoch': 1200, 'batch_size': 2, 'fp16': False, 'resume': False, 'pretrained_path': None}, 'Loss': {'loss_type': 'Lovasz', 'ignore_index': 255}, 'Optimizer': {'mode': 'adabound', 'base_lr': 0.007, 't_max': 30}}
+2019-07-24 16:24:44,004 train 121 [INFO][<module>] Device: cpu
+2019-07-24 16:24:44,005 train 122 [INFO][<module>] Max Epoch: 1200
+2019-07-24 16:24:44,005 train 123 [INFO][<module>] Batch size: 2
+2019-07-24 16:24:44,127 train 175 [INFO][<module>] Number of workers for train Dataloader: 0
+2019-07-24 16:24:44,141 train 303 [INFO][<module>] Epoch: 0
+2019-07-24 16:24:44,141 train 304 [INFO][<module>] Learning rate: 0.007

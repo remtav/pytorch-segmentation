@@ -1,0 +1,11 @@
+2019-05-24 09:35:41,884 train 107 [DEBUG][<module>] {'Net': {'output_channels': 2, 'enc_type': 'xception65', 'dec_type': 'aspp', 'output_stride': 8}, 'Data': {'target_size': '(448, 448)'}, 'Train': {'max_epoch': 400, 'batch_size': 2, 'fp16': False, 'resume': True, 'pretrained_path': '../model/cityscapes_2cl_deeplab_v3_plus_v3/model.pth', 'freeze_to_layer': 'logits', 'freeze_bn': False}, 'Loss': {'loss_type': 'Lovasz', 'ignore_index': 255}, 'Optimizer': {'mode': 'adabound', 'base_lr': 0.0007, 't_max': 30}}
+2019-05-24 09:35:41,885 train 108 [INFO][<module>] Device: cuda:0
+2019-05-24 09:35:41,885 train 109 [INFO][<module>] Max Epoch: 400
+2019-05-24 09:35:41,885 train 110 [INFO][<module>] Batch size: 2
+2019-05-24 09:35:41,885 train 113 [INFO][<module>] Deterministic mode activated. Seed = 1234
+2019-05-24 09:35:41,897 train 148 [INFO][<module>] albu.RandomScale(scale_limit=(-0.5, 0.5), p=0.5),albu.RandomCrop(height=449, width=449, p=1.0)
+2019-05-24 09:35:41,902 train 158 [INFO][<module>] Number of workers for train Dataloader: 1
+2019-05-24 09:35:41,902 train 163 [INFO][<module>] Resume from ../model/cityscapes_2cl_deeplab_v3_plus_v3/model.pth
+2019-05-24 09:35:42,361 train 185 [INFO][<module>] Resume from ..\model\cityscapes_deeplab_v3_plus_2cl\model_tmp.pth
+2019-05-24 09:35:44,311 train 231 [INFO][<module>] Epoch: 351
+2019-05-24 09:35:44,311 train 232 [INFO][<module>] Learning rate: 0.00016543469682057105

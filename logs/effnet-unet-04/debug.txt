@@ -1,0 +1,8 @@
+2019-07-30 15:34:56,402 train 120 [DEBUG][<module>] {'Net': {'output_channels': 2, 'enc_type': 'efficientnet-b4', 'dec_type': 'unet', 'pretrained': True}, 'Data': {'target_size': '(768, 768)'}, 'Train': {'max_epoch': 2400, 'batch_size': 16, 'fp16': False, 'resume': False, 'pretrained_path': None}, 'Loss': {'loss_type': 'Lovasz', 'ignore_index': 255}, 'Optimizer': {'mode': 'adabound', 'base_lr': 0.007, 't_max': 30}}
+2019-07-30 15:34:56,403 train 121 [INFO][<module>] Device: cuda:0
+2019-07-30 15:34:56,403 train 122 [INFO][<module>] Max Epoch: 2400
+2019-07-30 15:34:56,403 train 123 [INFO][<module>] Batch size: 16
+2019-07-30 15:34:56,429 train 175 [INFO][<module>] Number of workers for train Dataloader: 16
+2019-07-30 15:34:56,429 train 292 [INFO][<module>] Let's use 4 GPUs!
+2019-07-30 15:35:01,016 train 303 [INFO][<module>] Epoch: 0
+2019-07-30 15:35:01,017 train 304 [INFO][<module>] Learning rate: 0.007

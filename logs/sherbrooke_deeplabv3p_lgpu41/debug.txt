@@ -1,0 +1,16 @@
+2019-07-30 14:17:59,559 train 114 [DEBUG][<module>] {'Net': {'output_channels': 2, 'enc_type': 'mobilenetv2', 'dec_type': 'maspp', 'output_stride': 8, 'pretrained_path': '../model/cityscapes_deeplab_v3_plus_mnv2_2cl/model.pth'}, 'Data': {'target_size': '(512,512)', 'defects': False}, 'Train': {'max_epoch': 2400, 'batch_size': 4, 'fp16': False, 'resume': False, 'freeze_to_layer': False, 'freeze_bn': False}, 'Loss': {'loss_type': 'Lovasz', 'ignore_index': 255}, 'Optimizer': {'mode': 'adabound', 'base_lr': 0.0007, 't_max': 30}}
+2019-07-30 14:17:59,560 train 115 [INFO][<module>] Device: cuda:0
+2019-07-30 14:17:59,561 train 116 [INFO][<module>] Max Epoch: 2400
+2019-07-30 14:17:59,561 train 117 [INFO][<module>] Batch size: 4
+2019-07-30 14:17:59,587 train 169 [INFO][<module>] Number of workers for train Dataloader: 8
+2019-07-30 14:17:59,587 train 229 [INFO][<module>] Let's use 2 GPUs!
+2019-07-30 14:18:04,098 train 237 [INFO][<module>] Epoch: 0
+2019-07-30 14:18:04,098 train 238 [INFO][<module>] Learning rate: 0.0007
+2019-07-30 14:27:11,104 train 301 [INFO][<module>] train loss task 1: 0.92451
+train loss task 2: 0.60039
+train loss task 3: 0.52027
+2019-07-30 14:27:11,104 train 302 [INFO][<module>] train iou task 1: 0.246
+train iou task2: nan
+train iou task3: nan
+2019-07-30 14:27:11,612 train 237 [INFO][<module>] Epoch: 1
+2019-07-30 14:27:11,612 train 238 [INFO][<module>] Learning rate: 0.000692351660256832
