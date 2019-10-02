@@ -1,0 +1,24 @@
+Net:
+  output_channels: 2
+  enc_type: 'mobilenetv2'
+  dec_type: 'maspp'
+  output_stride: 8
+  pretrained_path: 
+Data:
+  dataset: 'sherbrooke'
+  target_size: (1024,1024)
+  defects: False
+Train:
+  max_epoch: 2400
+  batch_size: 16
+  fp16: False
+  resume: True
+  freeze_to_layer: False   
+  freeze_bn: False
+Loss:
+  loss_type: 'Lovasz'
+  ignore_index: 255
+Optimizer:
+  mode: 'adabound'
+  base_lr: 0.0007
+  t_max: 30

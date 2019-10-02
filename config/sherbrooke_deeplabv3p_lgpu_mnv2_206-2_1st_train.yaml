@@ -1,0 +1,29 @@
+Net:
+  output_channels: 2
+  enc_type: 'mobilenetv2'
+  dec_type: 'maspp'
+  output_stride: 8
+  pretrained: 
+Data:
+  dataset: 'sherbrooke'
+  target_size: (576,1024)
+  defects: True
+Train:
+  max_epoch: 200
+  batch_size: 32
+  fp16: False
+  resume: False
+  pretrained_path: '../model/sherbrooke_deeplabv3p_lgpu_mnv2_300-3/model.pth'
+  load_pretrained_logits: False
+  freeze_to_layer: False
+  freeze_bn: False
+  valid_per_x_epoch: 2
+  tta: True
+  valid_only: False
+Loss:
+  loss_type: 'Lovasz'
+  ignore_index: 255
+Optimizer:
+  mode: 'adabound'
+  base_lr: 0.00001
+  t_max: 30

@@ -1,0 +1,24 @@
+Net:
+  output_channels: 2
+  enc_type: 'xception65'
+  dec_type: 'aspp'
+  output_stride: 8
+  pretrained_path: '../model/cityscapes_deeplab_v3_plus/model.pth'
+Data:
+  dataset: 'sherbrooke'
+  target_size: (448, 448)
+  defects: False
+Train:
+  max_epoch: 400
+  batch_size: 2
+  fp16: False
+  resume: False
+  freeze_to_layer: 'logits'
+  freeze_bn: False
+Loss:
+  loss_type: 'Lovasz'
+  ignore_index: 255
+Optimizer:
+  mode: 'adabound'
+  base_lr: 0.0007
+  t_max: 30

@@ -1,0 +1,24 @@
+Net:
+  output_channels: 2
+  enc_type: 'resnet18'
+  dec_type: 'unet_scse'
+  pretrained: True
+Data:
+  dataset: 'sherbrooke'
+  target_size: (512,512)
+  defects: False
+Train:
+  max_epoch: 2400
+  batch_size: 8
+  fp16: False
+  resume: False
+  pretrained_path: 
+  freeze_to_layer: False   
+  freeze_bn: False
+Loss:
+  loss_type: 'Lovasz'
+  ignore_index: 255
+Optimizer:
+  mode: 'adabound'
+  base_lr: 0.0007
+  t_max: 30

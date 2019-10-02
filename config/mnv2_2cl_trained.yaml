@@ -1,0 +1,23 @@
+Net:
+  output_channels: 2
+  enc_type: 'mobilenetv2'
+  dec_type: 'maspp'
+  output_stride: 8
+Data:
+  dataset: 'sherbrooke'
+  target_size: (768,768)
+Train:
+  max_epoch: 10
+  batch_size: 8
+  fp16: False
+  resume: False
+  pretrained_path: '../model/cityscapes_deeplab_v3_plus_mnv2_2cl/model.pth'
+  freeze_to_layer: 'logits'
+  freeze_bn: False
+Loss:
+  loss_type: 'Lovasz'
+  ignore_index: 255
+Optimizer:
+  mode: 'sgd'
+  base_lr: 0.01
+  t_max: 30

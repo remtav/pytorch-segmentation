@@ -1,0 +1,23 @@
+Net:
+  output_channels: 2
+  enc_type: 'xception65'
+  dec_type: 'aspp'
+  output_stride: 8
+Data:
+  dataset: 'sherbrooke'
+  target_size: (768,768)
+Train:
+  max_epoch: 20
+  batch_size: 8
+  fp16: False
+  resume: False
+  pretrained_path: '../model/sherbrooke_deeplabv3p_lgpu21/model.pth'
+  freeze_to_layer: 'logits'   
+  freeze_bn: False
+Loss:
+  loss_type: 'Lovasz'
+  ignore_index: 255
+Optimizer:
+  mode: 'adabound'
+  base_lr: 0.001
+  t_max: 30

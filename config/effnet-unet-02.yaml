@@ -1,0 +1,21 @@
+Net:
+  output_channels: 2
+  enc_type: 'efficientnet-b4'
+  dec_type: 'unet'
+  pretrained: False
+Data:
+  dataset: 'sherbrooke'
+  target_size: (512, 512)
+Train:
+  max_epoch: 1200
+  batch_size: 4
+  fp16: False
+  resume: True
+  pretrained_path:
+Loss:
+  loss_type: 'Lovasz'
+  ignore_index: 255
+Optimizer:
+  mode: 'adabound'
+  base_lr: 0.007
+  t_max: 30
